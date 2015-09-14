@@ -36,7 +36,7 @@
 Following files are included to setup a Vagrant VM for use as a LAMP server.
   - .bash_profile
   - .tmux.conf
-  - .vim
+  - .vim/
   - .vimrc
   - .vimrc-root
   - README.md
