@@ -20,6 +20,9 @@ alias vim='vim -p' # allows vim to open multiple files in tabs
 
 alias duh='dulist=$(du -sh */); for i in T G M K; do printf "$dulist"|egrep "^[0-9\.]+$i" | sort -rn; done'
 
+alias tma='tmux attach -t'
+alias tml='tmux ls'
+
 # Colors
 BLACK='\[\e[0;30m\]'
 BLUE='\[\e[0;34m\]'
