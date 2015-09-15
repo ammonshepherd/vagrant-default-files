@@ -50,8 +50,8 @@ make install
 ################################################################################
 # Copy user dot files
 cp /vagrant/.bash_profile /home/vagrant/
-cp -r /vagrant/.vim /home/vagrant/
-cp /vagrant/.vimrc /home/vagrant/
+cp -r /vagrant/vim /home/vagrant/.vim
+ln -s /home/vagrant/.vim/.vimrc /home/vagrant/.vimrc
 cp /vagrant/.vimrc-root /root/.vimrc
 cp /vagrant/.tmux.conf /home/vagrant/
 # fix perms
