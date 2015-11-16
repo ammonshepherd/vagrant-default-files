@@ -42,6 +42,15 @@ YELLOW='\[\e[1;33m\]'
 WHITE='\[\e[1;37m\]'
 NC='\[\033[00m\]' #'\e[0m'              # No Color
 
+function rprompt {
+  RUBYPROMPT="${WHITE}(${RED}\$(~/.rvm/bin/rvm-prompt)${WHITE})"
+  export PS1="${LIGHTYELLOW}\u${LIGHTGRAY}@${LIGHTGREEN}\h ${CYAN}[\w]${BROWN}\n${RUBYPROMPT}\n % ${NC}"
+}
+function norprompt {
+  RUBYPROMPT=""
+  export PS1="${LIGHTYELLOW}\u${LIGHTGRAY}@${LIGHTGREEN}\h ${CYAN}[\w]${BROWN}\n${RUBYPROMPT}\n % ${NC}"
+}
+
 export PS1="${BROWN}\u${LIGHTGRAY}@${PURPLE}\h ${CYAN}[\w]${BROWN}\n % ${NC}"
 export LD_LIBRARY_PATH=/usr/local/lib
 

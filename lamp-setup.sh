@@ -10,7 +10,7 @@ rpm -UVh rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
 ################################################################################
 # Run Yum Update
 yum -y update
-yum -y install curl-devel dkms gcc gettext git httpd httpd-devel ImageMagick man mysql mysql-devel mysql-libs mysql-server ncurses ncurses-devel php php-devel php-mysql unzip zip kernel-devel-$(uname -r) kernel-headers-$(uname -r)
+yum install -y epel-release pygpgme curl curl-devel dkms gcc gettext git httpd httpd-devel ImageMagick man mysql mysql-devel mysql-libs mysql-server ncurses ncurses-devel php php-devel php-mysql sqlite-devel unzip zip kernel-devel-$(uname -r) kernel-headers-$(uname -r)
 
 
 
@@ -20,30 +20,6 @@ service httpd start
 chkconfig httpd on
 service mysqld start
 chkconfig mysqld on
-
-
-
-################################################################################
-# Tmux
-# Install latest version of tmux
-# Check for latest version at: http://sourceforge.net/projects/levent/files/libevent/
-cd ~/
-wget http://iweb.dl.sourceforge.net/project/levent/libevent/libevent-2.0/libevent-2.0.22-stable.tar.gz
-tar -xvzf libevent-2.0.22-stable.tar.gz
-cd libevent-2.0.22-stable
-./configure
-make
-make install
-cd ..
-
-# Check here for latest versions: http://sourceforge.net/projects/tmux/files/tmux/
-cd ~/
-wget http://downloads.sourceforge.net/tmux/tmux-1.9a.tar.gz
-tar -xvzf tmux-1.9a.tar.gz
-cd tmux-1.9a
-./configure
-make
-make install
 
 
 
@@ -58,30 +34,6 @@ cp /vagrant/.tmux.conf /home/vagrant/
 chown -R vagrant:vagrant /home/vagrant/
 
 
-
-################################################################################
-# ViM
-### Install latest version of VIM
-# Check here for latest version: ftp://ftp.vim.org/pub/vim/unix
-cd /usr/local/src/
-wget ftp://ftp.vim.org/pub/vim/unix/vim-7.4.tar.bz2
-tar -xjf vim-7.4.tar.bz2
-cd vim74
-./configure --prefix=/usr --with-features=huge --enable-rubyinterp --enable-pythoninterp
-make && make install
-
-
-
-################################################################################
-### Install RVM, Ruby and Rails
-command curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
-#curl -L get.rvm.io | bash -s stable
-curl -L https://get.rvm.io | bash -s stable --autolibs=enabled --ruby --rails
-usermod -aG rvm vagrant
-source /etc/profile.d/rvm.sh
-
-
-
 ################################################################################
 ### Upgrade git
 yum -y install zlib-devel perl-ExtUtils-MakeMaker asciidoc xmlto openssl-devel
@@ -94,6 +46,39 @@ make all doc
 make install install-doc install-html
 
 
+################################################################################
+# ViM
+### Install latest version of VIM
+# Check here for latest version: ftp://ftp.vim.org/pub/vim/unix
+cd /usr/local/src/
+git clone https://github.com/vim/vim.git
+cd vim/src
+./configure --prefix=/usr --with-features=huge --enable-rubyinterp --enable-pythoninterp
+make && make install
+
+
+
+
+################################################################################
+# Tmux
+# Install latest version of tmux
+# Check for latest version at: http://sourceforge.net/projects/levent/files/libevent/
+cd ~/
+wget http://iweb.dl.sourceforge.net/project/levent/libevent/libevent-2.0/libevent-2.0.22-stable.tar.gz
+tar -xvzf libevent-2.0.22-stable.tar.gz
+cd libevent-2.0.22-stable
+./configure
+make
+make install
+
+# Check here for latest versions: http://sourceforge.net/projects/tmux/files/tmux/
+cd ~/
+git clone https://github.com/tmux/tmux.git
+cd tmux
+sh autogen.sh
+./configure && make
+
+
 
 ################################################################################
 ### Changes to Apache config file
@@ -104,3 +89,26 @@ make install install-doc install-html
 
 mkdir /websites
 usermod -aG vagrant apache
+
+
+
+################################################################################
+### Install RVM, Ruby and Rails
+sudo su vagrant
+cd ~/
+command curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
+#curl -L get.rvm.io | bash -s stable
+curl -L https://get.rvm.io | sudo bash -s stable --autolibs=enabled --ruby --rails
+usermod -aG rvm vagrant
+source /etc/profile.d/rvm.sh
+rvm requirements
+
+
+echo "\n\n\n ************ Disable SELINUX ************ \n\n\n"
+cat /etc/selinux/config
+
+################################################################################
+### Install Phusion Passenger
+sudo curl --fail -sSLo /etc/yum.repos.d/passenger.repo https://oss-binaries.phusionpassenger.com/yum/definitions/el-passenger.repo
+sudo yum install -y mod_passenger
+
