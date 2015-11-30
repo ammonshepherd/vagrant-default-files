@@ -55,6 +55,7 @@ git clone https://github.com/vim/vim.git
 cd vim/src
 ./configure --prefix=/usr --with-features=huge --enable-rubyinterp --enable-pythoninterp
 make && make install
+git clone https://github.com/VundleVim/Vundle.vim.git /home/vagrant/.vim/bundle/Vundle.vim
 
 
 
@@ -88,6 +89,7 @@ sh autogen.sh
 # AllowOverride None => AllowOverride All
 
 mkdir /websites
+chown vagrant:vagrant /websites
 usermod -aG vagrant apache
 
 
@@ -99,7 +101,7 @@ cd ~/
 command curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
 #curl -L get.rvm.io | bash -s stable
 curl -L https://get.rvm.io | sudo bash -s stable --autolibs=enabled --ruby --rails
-usermod -aG rvm vagrant
+sudo usermod -aG rvm vagrant
 source /etc/profile.d/rvm.sh
 rvm requirements
 
