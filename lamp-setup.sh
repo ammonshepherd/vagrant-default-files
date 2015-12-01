@@ -10,7 +10,7 @@ rpm -UVh rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
 ################################################################################
 # Run Yum Update
 yum -y update
-yum install -y epel-release pygpgme curl curl-devel dkms gcc gettext git httpd httpd-devel ImageMagick man mysql mysql-devel mysql-libs mysql-server ncurses ncurses-devel php php-devel php-mysql sqlite-devel unzip zip kernel-devel-$(uname -r) kernel-headers-$(uname -r)
+yum install -y epel-release pygpgme curl curl-devel dkms gcc gettext git httpd httpd-devel ImageMagick man mysql mysql-devel mysql-libs mysql-server ncurses ncurses-devel php php-devel php-mysql sqlite-devel tmux unzip zip kernel-devel-$(uname -r) kernel-headers-$(uname -r)
 
 
 
@@ -64,20 +64,20 @@ git clone https://github.com/VundleVim/Vundle.vim.git /home/vagrant/.vim/bundle/
 # Tmux
 # Install latest version of tmux
 # Check for latest version at: http://sourceforge.net/projects/levent/files/libevent/
-cd ~/
-wget http://iweb.dl.sourceforge.net/project/levent/libevent/libevent-2.0/libevent-2.0.22-stable.tar.gz
-tar -xvzf libevent-2.0.22-stable.tar.gz
-cd libevent-2.0.22-stable
-./configure
-make
-make install
+# cd ~/
+# wget http://iweb.dl.sourceforge.net/project/levent/libevent/libevent-2.0/libevent-2.0.22-stable.tar.gz
+# tar -xvzf libevent-2.0.22-stable.tar.gz
+# cd libevent-2.0.22-stable
+# ./configure
+# make
+# make install
 
-# Check here for latest versions: http://sourceforge.net/projects/tmux/files/tmux/
-cd ~/
-git clone https://github.com/tmux/tmux.git
-cd tmux
-sh autogen.sh
-./configure && make
+# # Check here for latest versions: http://sourceforge.net/projects/tmux/files/tmux/
+# cd ~/
+# git clone https://github.com/tmux/tmux.git
+# cd tmux
+# sh autogen.sh
+# ./configure && make
 
 
 
